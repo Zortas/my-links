@@ -39,5 +39,57 @@
   <a href="https://github.com/Zortas/Visualize-Audio-Extension/archive/refs/heads/main.zip">Visualize Audio Extension</a>
   <a href="https://dictionary.cambridge.org/">Cambridge Dictionary</a>
   <a href="https://www.urbandictionary.com/">Urban Dictionary</a>
+  <!-- Khối nút Copy Code CSS -->
+  <div style="display: flex; justify-content: center; margin-top: 20px;">
+      <button id="copyAndOpenBtn" style="background-color: #238636; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 15px; width: 320px; transition: 0.2s;">
+          📋 Copy CSS & Mở Gist
+      </button>
+  </div>
+  <script>
+      // 1. Link Raw để máy tính bí mật tải code về copy
+      const rawCssLink = "https://gist.githubusercontent.com/Zortas/44952644d9490e4b90f2d17e1b3340d8/raw";
+      
+      // 2. Link trang Gist để mở ra cho bạn xem
+      const gistPageLink = "https://gist.github.com/Zortas/44952644d9490e4b90f2d17e1b3340d8";
+  
+      document.getElementById('copyAndOpenBtn').addEventListener('click', async function() {
+          const btn = this;
+          const originalText = btn.innerHTML;
+  
+          try {
+              // Đổi chữ báo hiệu đang tải
+              btn.innerHTML = "⏳ Đang xử lý...";
+              
+              // Kéo dữ liệu code về
+              let response = await fetch(rawCssLink);
+              let textCode = await response.text();
+              
+              // Ép vào Clipboard (Bộ nhớ tạm)
+              await navigator.clipboard.writeText(textCode);
+              
+              // Báo thành công
+              btn.innerHTML = "✅ Đã Copy!";
+              btn.style.backgroundColor = "#1f6feb"; // Đổi sang màu xanh dương
+              
+              // MỞ TAB MỚI TRỎ ĐẾN TRANG GIST
+              window.open(gistPageLink, '_blank');
+              
+              // Sau 2 giây tự động quay về như cũ
+              setTimeout(() => {
+                  btn.innerHTML = originalText;
+                  btn.style.backgroundColor = "#238636";
+              }, 2000);
+  
+          } catch (err) {
+              btn.innerHTML = "❌ Lỗi mạng!";
+              btn.style.backgroundColor = "#d73a49"; // Đổi màu đỏ
+              console.error(err);
+              setTimeout(() => {
+                  btn.innerHTML = originalText;
+                  btn.style.backgroundColor = "#238636";
+              }, 2000);
+          }
+      });
+  </script>
 </body>
 </html>
