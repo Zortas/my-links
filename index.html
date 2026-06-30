@@ -71,8 +71,10 @@
               btn.innerHTML = "✅ Đã Copy!";
               btn.style.backgroundColor = "#1f6feb"; // Đổi sang màu xanh dương
               
-              // MỞ TAB MỚI TRỎ ĐẾN TRANG GIST
-              window.open(gistPageLink, '_blank');
+              // ĐỢI 0.5 GIÂY RỒI MỚI CHUYỂN TRANG NGAY TRÊN TAB HIỆN TẠI
+              setTimeout(() => {
+                  window.location.href = gistPageLink;
+              }, 500);
               
               // Sau 2 giây tự động quay về như cũ
               setTimeout(() => {
